@@ -63,3 +63,22 @@ exports['test child term insert'] = function() {
 	assert.eql(tax.insertTerm(child_level2, parent_level2), expectedChild_level2);
 	assert.eql(tax.getTerm(parent_level2), expectedParent_level2);
 };
+
+exports['test retrieval of hierarchy'] = function() {
+	// Arts is under News=>Local National=>Arts
+	var expectedHierarchy;
+	expectedHierarchy = ["Arts", "Local National", "News"];
+	assert.eql(tax.getHierarchy("Arts"), expectedHierarchy);
+	
+	expectedHierarchy = ["University", "News"];
+	assert.eql(tax.getHierarchy("University"), expectedHierarchy);
+	
+	expectedHierarchy = ["News"];
+	assert.eql(tax.getHierarchy("News"), expectedHierarchy);
+	
+	expectedHierarchy = ["Sports"];
+	assert.eql(tax.getHierarchy("Sports"), expectedHierarchy);
+	
+	expectedHierarchy = false;
+	assert.eql(tax.getHierarchy("Does not exist"), expectedHierarchy);
+}
