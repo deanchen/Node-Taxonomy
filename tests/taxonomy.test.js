@@ -28,7 +28,7 @@ exports['test insert and get'] = function() {
 	for (var i = 0; i < masterTerms.length; i++) {
 		expectedObject.name = masterTerms[i];
 		assert.eql(tax.insertTerm(masterTerms[i]), expectedObject);
-		assert.eql(tax.fetchTerm(masterTerms[i]), expectedObject);
+		assert.eql(tax.getTerm(masterTerms[i]), expectedObject);
 	}
 };
 
@@ -45,7 +45,7 @@ exports['test child term insert'] = function() {
 	var expectedChild = {name: name, parent: parent, children: []};
 	
 	assert.eql(tax.insertTerm(name, parent), expectedChild);
-	assert.eql(tax.fetchTerm(parent), expectedParent);
+	assert.eql(tax.getTerm(parent), expectedParent);
 	
 	var name2 = 'University';
 	var parent2 = 'News';
@@ -53,7 +53,7 @@ exports['test child term insert'] = function() {
 	var expectedChild2 = {name: name2, parent: parent2, children: []};
 	
 	assert.eql(tax.insertTerm(name2, parent2), expectedChild2);
-	assert.eql(tax.fetchTerm(parent2), expectedParent2);
+	assert.eql(tax.getTerm(parent2), expectedParent2);
 	
 	// insert child of child
 	var child_level2 = 'Arts';
@@ -61,5 +61,5 @@ exports['test child term insert'] = function() {
 	var expectedParent_level2 = {name: parent_level2, parent: "News", children: [child_level2]};
 	var expectedChild_level2 = {name: child_level2, parent: parent_level2, children: []};
 	assert.eql(tax.insertTerm(child_level2, parent_level2), expectedChild_level2);
-	assert.eql(tax.fetchTerm(parent_level2), expectedParent_level2);
+	assert.eql(tax.getTerm(parent_level2), expectedParent_level2);
 };
