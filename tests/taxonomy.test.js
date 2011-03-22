@@ -22,11 +22,15 @@ exports['test name'] = function(){
 var masterTerms = ['News', 'Sports', 'Opinion', 'Recess', 'Towerview'];
 
 exports['test insert and get'] = function() {
+	// no term should exist at this point
+	
+	
 	var expectedObject = {name: null, parent: null, children: []};
 	
 	// insert and fetch master terms
 	for (var i = 0; i < masterTerms.length; i++) {
 		expectedObject.name = masterTerms[i];
+		assert.equal(tax.existTerm(expectedObject.name), false);
 		assert.eql(tax.insertTerm(masterTerms[i]), expectedObject);
 		assert.eql(tax.getTerm(masterTerms[i]), expectedObject);
 	}
@@ -34,7 +38,8 @@ exports['test insert and get'] = function() {
 
 exports['test duplicate insert'] = function() {
 	for (var i = 0; i < masterTerms.length; i++) {
-		assert.equal(tax.insertTerm(masterTerms[0]), false);
+		assert.equal(tax.existTerm(masterTerms[i]), true);
+		assert.equal(tax.insertTerm(masterTerms[i]), false);
 	}
 };
 
@@ -81,4 +86,9 @@ exports['test retrieval of hierarchy'] = function() {
 	
 	expectedHierarchy = false;
 	assert.eql(tax.getHierarchy("Does not exist"), expectedHierarchy);
+}
+
+exports['test child addition'] = function() {
+	//tax.addTerm()
+	tax.addChild("Local National", "")
 }
